@@ -281,7 +281,25 @@ empty
    else
      "Tie!"
    end
+ end
 
+ def player_with_longest_name
+   name_array = []
+   game_hash.each do |location, team_data|
+     team_data.each do |attribute, data|
+       if attribute == :players
+         data.each do |player_hash|
+           player_hash.each do |name, stat_hash|
+             name_array.push(name)
+           end
+         end
+       end
+     end
+   end
+   name_array.sort_by! do |name|
+     -name.length
+   end
+   name_array.first
  end
 
  def good_practices
@@ -301,5 +319,3 @@ empty
      end
    end
  end
-binding.pry
-winning_team
