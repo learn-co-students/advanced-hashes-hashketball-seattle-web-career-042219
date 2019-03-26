@@ -111,13 +111,13 @@ num_rebounds[0]
 
  def num_points_scored(player_name)
    points_scored = nil
-   game_hash.each do |location, team_data|
-     team_data.each do |attribute, data|
+   game_hash.map do |location, team_data|
+     team_data.map do |attribute, data|
        if attribute == :players
-       data.each do |data_item|
-          data_item.each do |name, player_stat|
+       data.map do |data_item|
+          data_item.map do |name, player_stat|
             if name == player_name
-              player_stat.each do |each_stat, value|
+              player_stat.map do |each_stat, value|
                 if each_stat == :points
                   points_scored = value
                   #binding.pry
@@ -128,19 +128,19 @@ num_rebounds[0]
         end
          end
      end
-   end
-   points_scored.to_i
+   end.flatten.reject{|element| element.nil?}.join.to_i
+   #points_scored.to_i
  end
 
  def shoe_size(player_name)
    size = nil
-   game_hash.each do |location, team_data|
-     team_data.each do |attribute, data|
+   game_hash.map do |location, team_data|
+     team_data.map do |attribute, data|
        if attribute == :players
-       data.each do |data_item|
-          data_item.each do |name, player_stat|
+       data.map do |data_item|
+          data_item.map do |name, player_stat|
             if name == player_name
-              player_stat.each do |each_stat, value|
+              player_stat.map do |each_stat, value|
                 if each_stat == :shoe
                   size = value
                   #binding.pry
@@ -151,8 +151,8 @@ num_rebounds[0]
         end
          end
      end
-   end
-   size.to_i
+   end.flatten.reject{|element| element.nil?}.join.to_i
+   #size.to_i
 
  end
 
@@ -170,14 +170,15 @@ num_rebounds[0]
 
  def team_colors(team)
    team_colors = nil
-   game_hash.each do |location, team_data|
+   game_hash.map do |location, team_data|
      #binding.pry
      if team_data[:team_name] == team
-       team_colors = team_data[:colors]
+       #team_colors = team_data[:colors]
        #binding.pry
+       team_data[:colors]
      end
-  end
-  team_colors
+  end.flatten.reject{|element| element.nil?}
+  #team_colors
  end
 
  def team_names
@@ -199,17 +200,20 @@ num_rebounds[0]
          data_item.map do |name, player_stat|
              player_stat.map do |each_stat, value|
                if each_stat == :number
+                 value.to_i
+                 #binding.pry
                  empty << value.to_i
                  #binding.pry
                end
              end
            end
          end
-           #binding.pry
+
          end
      end
      end
    end
+
 empty
  end
 
@@ -233,6 +237,25 @@ empty
    stats_hash
  end
 
+ def most_points_scored
+  points_hash = {}
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute == :players
+        data.each do |player_hash|
+          player_hash.each do |name, stat_hash|
+            points_hash[name] = stat_hash[:points]
+          end
+        end
+      end
+    end
+  end
+  points_hash.sort_by do |player, points|
+    -points.to_i
+  end.first[0]
+
+ end
+
  def good_practices
    game_hash.each do |location, team_data|
      #are you ABSOLUTELY SURE what 'location' and 'team data' are? use binding.pry to find out!
@@ -250,5 +273,4 @@ empty
      end
    end
  end
-
- good_practices
+ 
