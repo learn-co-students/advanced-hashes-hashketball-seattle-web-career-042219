@@ -256,6 +256,34 @@ empty
 
  end
 
+ def winning_team
+   home_score = 0
+   away_score = 0
+   game_hash.each do |location, team_data|
+     team_data.each do |attribute, data|
+       if attribute == :players
+         data.each do |player_hash|
+           player_hash.each do |name, stat_hash|
+             if location == :home
+              home_score+= stat_hash[:points].to_i
+             elsif location == :away
+              away_score+= stat_hash[:points].to_i
+             end
+           end
+         end
+       end
+     end
+   end
+   if home_score > away_score
+     game_hash[:home][:team_name]
+   elsif away_score > home_score
+     game_hash[:away][:team_name]
+   else
+     "Tie!"
+   end
+
+ end
+
  def good_practices
    game_hash.each do |location, team_data|
      #are you ABSOLUTELY SURE what 'location' and 'team data' are? use binding.pry to find out!
@@ -273,4 +301,5 @@ empty
      end
    end
  end
- 
+binding.pry
+winning_team
