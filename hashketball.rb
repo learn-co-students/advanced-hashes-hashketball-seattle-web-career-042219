@@ -302,6 +302,30 @@ empty
    name_array.first
  end
 
+ def long_name_steals_a_ton?
+   steals_hash = {}
+   game_hash.each do |location, team_data|
+     team_data.each do |attribute, data|
+       if attribute == :players
+         data.each do |player_hash|
+           player_hash.each do |name, stat_hash|
+             steals_hash[name] = stat_hash[:steals]
+           end
+         end
+       end
+     end
+   end
+   sorted_steals_hash = steals_hash.sort_by do |player, steals|
+     -steals.to_i
+   end
+
+   thief = sorted_steals_hash.first[0]
+
+
+   player_with_longest_name == thief
+
+ end
+
  def good_practices
    game_hash.each do |location, team_data|
      #are you ABSOLUTELY SURE what 'location' and 'team data' are? use binding.pry to find out!
