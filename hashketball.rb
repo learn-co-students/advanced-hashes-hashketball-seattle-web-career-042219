@@ -43,7 +43,7 @@ def game_hash
           points: 26,
           rebounds: 12,
           assists: 6,
-          steals: 8,
+          steals: 3,
           blocks: 8,
           slam_dunks: 5
         },
@@ -177,4 +177,39 @@ def player_numbers(team)
   end
   numbers = numbers.flatten
   numbers.sort
+end
+
+def player_stats(player)
+  stat_hash = {}
+  game_hash.each do |city, teams|
+    teams[:players].each do |name, stats|
+      if name == player
+        stat_hash = stats
+      end
+    end
+  end
+  stat_hash
+end
+
+def big_shoe_rebounds()
+  shoe_array = shoe_size_sort()
+  biggest = shoe_array.last
+  game_hash.each do |city, teams|
+    teams[:players].each do |name, stats|
+      if stats[:shoe] == biggest
+        return stats[:rebounds]
+      end
+    end
+  end
+
+end
+
+def shoe_size_sort()
+  shoe_array = []
+  game_hash.each do |city, teams|
+    teams[:players].each do |name, stats|
+      shoe_array << stats[:shoe]
+    end
+  end
+  shoe_array.sort()
 end
