@@ -301,7 +301,7 @@ def long_name_steals_a_ton?
       end
     end
   end  
-  true if steal_count < target_count
+  target_count > steal_count
 end
 
 
