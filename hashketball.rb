@@ -160,7 +160,9 @@ def big_shoe_rebounds
   biggest_shoe.fetch(:rebounds)
 end
 
-def most_points_scored; end
+def most_points_scored
+  puts player_merge.max_by { |player, statistics| statistics.fetch(:points) }[1]
+end
 
 def winning_team; end
 
