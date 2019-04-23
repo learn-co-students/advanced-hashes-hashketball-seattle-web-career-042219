@@ -1,6 +1,8 @@
 require 'pry'
 
-#school
+### lecture ###
+
+
 # def game_hash
 #   {
 #     home: {
@@ -122,18 +124,39 @@ require 'pry'
 
 
 
-### school's with new hash ###
+# def num_points_scored(player_name)
+#   #  player_name is passed in by rspecs
+#   players = get_players
+#   find_player(players, player_name)[:points]
+# end
+
+# def get_players
+#   game_hash.map do |team_info|
+#     team_info[1][:players]
+#   end.flatten
+# end
+
+# def find_player(players, player_name)
+#   players.find do |player|
+#     player[:player_name]==player_name
+#   end
+# end
+
+# def shoe_size(player_name)
+#   players = get_players
+#   find_player(players, player_name)[:shoe]
+# end
+
+
+### school's with new hash. Players are an array and not a hash ###
 
 # def num_points_scored(player_name)
 #   # player_name is passed in by rspec
 #   players = get_players
-#   # the variable players is set to the result of the get_players method, an array
+#   # the variable players is set to the result of the get_players helper method, which is an array
 #   find_player(players, player_name)[:points]
-#   binding.pry
 #   #find_player is called with 2 args. The result of get players and the player_name.
 #   #the result is a hash. The value at the key of [:points] is returned.
-
-#   # The next test for shoe size is exactly the same, but with [:shoe]
 # end
 
 # def get_players
@@ -150,12 +173,22 @@ require 'pry'
 #   end
 # end
 
+
+#   # The next test for shoe size is exactly the same, but with [:shoe]
+
+
 # def shoe_size(player_name)
 #   players=get_players
 #   find_player(players, player_name)[:shoe]
 # end
 
 ### end ###
+
+
+
+
+### my code ###
+
 
 def game_hash
   {
@@ -364,3 +397,6 @@ end
 def long_name_steals_a_ton?
   players.max_by { |player, stats| stats.fetch(:steals) }[0] == player_with_longest_name 
 end
+
+
+# # puts num_points_scored("Ben Gordon")
